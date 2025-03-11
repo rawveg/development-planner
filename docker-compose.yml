@@ -1,0 +1,22 @@
+services:
+  development-planner:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./plans:/app/plans
+      - ./docs:/app/docs
+    environment:
+      # Required: Your OpenRouter API key
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      
+      # Optional: The AI model to use
+      # Default: google/gemini-2.0-pro-exp-02-05:free (free tier)
+      # Examples of other models:
+      # - anthropic/claude-3-opus-20240229
+      # - anthropic/claude-3-sonnet-20240229
+      # - openai/gpt-4o
+      # See: https://openrouter.ai/docs#models
+      - OPENROUTER_MODEL=${OPENROUTER_MODEL:-google/gemini-2.0-pro-exp-02-05:free}
+    stdin_open: true
+    tty: true
